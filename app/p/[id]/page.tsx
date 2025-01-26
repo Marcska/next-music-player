@@ -8,16 +8,24 @@ import Link from 'next/link';
 import { formatDuration } from '@/lib/utils';
 import { CoverImage } from './cover-image';
 import { EditableTitle } from './editable-title';
+export const dynamic = 'force-dynamic';
 
 export default async function PlaylistPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-  let id = (await params).id;
-  let playlist = await getPlaylistWithSongs(id);
+  let playlist;
 
-  if (!playlist) {
+  try {
+    let id =  (await params).id;
+    playlist = await getPlaylistWithSongs(id);
+
+    if (!playlist) {
+      notFound();
+    }
+  } catch (error) {
+    console.error('Error fetching playlist:', error);
     notFound();
   }
 

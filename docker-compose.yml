@@ -1,0 +1,39 @@
+version: '3.8'
+
+services:
+  next-music-player:
+    build: .
+    container_name: next-music-player
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+    environment:
+      - NODE_ENV=development
+      - POSTGRES_URL=postgres://user:password@db:5432/music_player
+    depends_on:
+      - db
+    command: ["pnpm", "dev"]
+    networks:
+      - next-music
+
+  db:
+    image: postgres:13-alpine
+    container_name: postgres-db
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: music_player
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - next-music
+
+networks:
+  next-music:
+    driver: bridge
+
+volumes:
+  postgres-data:

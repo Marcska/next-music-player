@@ -4,13 +4,13 @@ const nextConfig: NextConfig = {
   devIndicators: {
     appIsrStatus: false,
   },
-  experimental: {
-    ppr: true,
-    reactCompiler: true,
-    serverActions: {
-      bodySizeLimit: '5mb',
-    },
-  },
+  // experimental: {
+  //   ppr: true,
+  //   reactCompiler: true,
+  //   serverActions: {
+  //     bodySizeLimit: '5mb',
+  //   },
+  // },
   images: {
     remotePatterns: [
       {
